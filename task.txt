@@ -1,0 +1,84 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+import java.util.Stack
+fun main(args:Array<String>) {
+   /* val num1=args[0].toInt()
+    val op=args[1]
+    val num2=args[2].toInt()
+    var sum=0
+    if(op=="+"){
+    sum=num1+num2
+    }
+    else if(op=="-"){
+    sum=num1-num2
+    }
+    else if(op=="*"){
+    sum=num1*num2
+    }
+    else if(op=="/"){
+    sum=num1/num2
+    }
+    println(sum)*/
+   /* var res=0.0
+    var op="+"
+    for(i in args.indices){
+        if(i%2==0){
+            if(op=="+"){
+                res+=args[i].toDouble()
+            }
+            else if(op=="-"){
+                res-=args[i].toDouble()
+            }
+            else if(op=="*"){
+                res*=args[i].toDouble()
+            }
+            else if(op=="/"){
+                res/=args[i].toDouble()
+            }
+        }else{
+            op=args[i]
+        }
+    }
+   
+    print(res)*/
+    println(clac(args))
+}
+fun precedence(operator: String): Int {
+    return when (operator) {
+        "+", "-" -> 1
+        "*", "/" -> 2
+        else -> -1
+    }
+}
+fun isOperator(symbol: Any): Boolean {
+    return symbol in arrayOf("+", "-", "*", "/")
+}
+fun Operation(a: Double, b: Double, op: String): Double {
+    return when (op) {
+        "+" -> a + b
+        "-" -> b - a
+        "*" -> a * b
+        "/" ->b / a
+        else -> throw Throwable("not valid")
+    }
+}
+fun clac(expression: Array<String>): Double {
+    val number: Stack<Double> = Stack()
+    val operators: Stack<String> = Stack()
+    for (symbol in expression) {
+        if (isOperator(symbol)) {
+            while (operators.isNotEmpty() && precedence(symbol) <= precedence(operators.peek())) {
+                number.push(Operation(number.pop(), number.pop(), operators.pop()))
+            }
+            operators.push(symbol)
+        } else {
+            number.push(symbol.toDouble())
+        }
+    }
+    while (operators.isNotEmpty()) {
+        number.push(Operation(number.pop(), number.pop(), operators.pop()))
+    }
+    return number.pop()
+}
