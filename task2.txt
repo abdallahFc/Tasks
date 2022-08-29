@@ -1,0 +1,160 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+import java.util.Stack
+fun main() {
+    var r:shape=rectangle(5.0,3.0)
+    printArea(r)
+    var sq:shape=Squre(5.0)
+    printArea(sq)
+    /*
+        I want to return the first item that matches the following conditions:
+        1. The item contains the character 'r'
+        2. The item starts with the character 'M'
+        Hint: ["Maze", "Mr.", "More"] will return "Mr.".
+    */
+    val a = listOf("maze","mr", "more")
+    for(i in a.indices){
+        if(a[i].startsWith("m") && "r" in a[i]){
+            println(a[i])
+            break
+        }
+    }
+    /*
+        I want to return the only item that matches the following conditions:
+        1. The item contains the character 'r'
+        2. The item starts with the character 'M'
+        Hint: If no match or more than one match were found, return default result.
+        Hint: ["Mr.", "Maze"] will return "Mr.". ["Mr.", "More"] will return the default result
+    */
+    val b = listOf("more","mr")
+    var c=0
+    var e=" "
+    for(i in b.indices){
+        if(b[i].startsWith("m") && "r" in b[i]){
+            c++
+            if(c==1){
+                e=b[i]
+            }
+            else{
+                break
+            }
+        }
+    }
+    if(c==1) println(e) else println("null")
+    
+    /*
+        I want to return the items before the one that matches the following conditions:
+        1. The item contains the character 'a'
+        2. The item starts with the character 'M'
+        Hint: ["a", "Ma", "M"] will return ["a"]
+    */
+    
+    val cc = listOf("a", "Ma", "M")
+    for(i in cc.indices){
+        if(cc[i].startsWith("M") && "a" in cc[i]){
+            println(cc[i-1])
+            break
+        }
+    }
+    
+        /*
+        I want to return true if at least one item matches the following conditions:
+        1. The item length is >= 'count'
+        Otherwise, return false.
+        Hint: if items = ["a", "abc"] and count = 3, will return true.
+   */
+    
+    val k=listOf("a", "abc", "ab")
+    var count=3
+    for(i in k.indices){
+        if(k[i].length==count){
+              println("true")
+              break
+        }
+ 
+    }
+    
+        /*
+         I want to return true if all items match the following conditions:
+        1. The item length is >= 'count'
+        Otherwise, return false.
+        Hint: if items = ["a", "abc"] and count = 3, will return false.
+    */
+    val g=listOf("a", "abc", "ab")
+    var o=0
+    for(i in g.indices){
+        if(g[i].length==count){
+              o++
+        }
+ 
+    }
+    if(o==count) println("true") else println("false")
+    
+    
+    /*
+        I want to return the items starting with the one that matches the following conditions:
+        1. The item length equals 'count'
+        Hint: if items = ["a", "abc", "ab"] and count = 3, will return ["abc", "ab"]
+    */
+    val w =listOf("a", "abc", "ab")
+    var x=false
+    for(i in w.indices){
+      	if(w[i].length==count){
+             x=true
+         }
+         if(x){
+            println(w[i])
+         }
+    }
+    
+    /*
+        I want to return the item lengths.
+        Hint: ["a", "abc", "ab"] will return [1, 3, 2]
+    */
+    
+    val y=listOf("a", "abc", "ab")
+    for(i in y.indices){
+       print(y[i].length)
+ 
+    }  
+    
+}
+ abstract class shape{
+     abstract fun area(): Double
+     abstract fun name(): String
+}
+class  rectangle(l:Double,w:Double):shape(){
+    val len=l
+    val width=w
+    override fun area():Double{
+        return len*width
+    }
+   override fun name():String{
+        return "rectangle"
+    }
+}
+class  Squre(l:Double):shape(){
+    val len=l
+    override fun area():Double{
+        return len*len
+    }
+    override fun name():String{
+        return "Squre"
+    }
+}
+class  circle(r:Double):shape(){
+    val ridus=r
+    override fun area():Double{
+        return ridus*ridus*3.14
+    }
+    override fun name():String{
+        return "circle"
+    }
+}
+fun printArea(s:shape){
+    val area=s.area()
+    val name=s.name()
+    println("Area of $name is $area")
+}
